@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <HeroImage />
     <Navbar />
     <router-view/>
   </div>
@@ -7,11 +8,13 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue';
+import HeroImage from '@/components/HeroImage.vue';
 
 export default {
   name: 'App',
   components: {
     Navbar,
+    HeroImage,
   }
 }
 </script>

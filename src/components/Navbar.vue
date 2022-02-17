@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="navbarWrapper">
     <div class="logo">
       <img src="../assets/logo.svg" width="50" height="50">
       <p>2ForYouTube</p>
@@ -22,11 +22,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .header {
+  .navbarWrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 10%;
+    height: 110px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .logo {
