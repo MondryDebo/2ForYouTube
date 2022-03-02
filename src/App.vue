@@ -31,4 +31,8 @@ export default {
   body {
     font-family: 'Montserrat', sans-serif;
   }
+
+  button {
+    cursor: pointer;
+  }
 </style>

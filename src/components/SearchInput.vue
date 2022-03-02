@@ -2,7 +2,7 @@
   <input type="text"
     id="search"
     name="search"
-    placeholder="Paste YouTube link here"
+    placeholder="Search or paste YouTube link here"
     :value="value"
     @input="handleChange"
   />

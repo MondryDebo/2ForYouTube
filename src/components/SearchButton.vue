@@ -18,7 +18,6 @@ export default {
     border: none;
     border-radius: 10px;
     background: rgba(238, 238, 238, 0.562);
-    cursor: pointer;
   
     ion-icon {
       margin-left: 5px;

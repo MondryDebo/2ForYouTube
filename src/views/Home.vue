@@ -9,7 +9,7 @@
           <SearchButton @search="handleSearch" />
         </div>
         <div class="results" v-if="results.loaded && !loading">
-          <Download :results="results" />
+          <Download :results="results" :search="searchValue" />
         </div>
         <div class="loader" v-if="loading"><div></div><div></div><div></div><div></div></div>
       </div>
@@ -40,22 +40,41 @@ export default {
           title: '',
           thumbnail: '',
           author: '',
+          duration: '',
         }
       },
     };
   },
   methods: {
     async handleSearch() {
+      const key = 'AIzaSyBsuHDnJvJao5dXgIygCv1cNinF0lAcAiU';
+      const url = `https://www.googleapis.com/youtube/v3/search?key=${key}&type=video&part=snippet&q=${this.searchValue}`;
       this.loading = true;
-      await axios.get(`https://youtube-api-nodejs.herokuapp.com/apiVideo?URL=${this.searchValue}`)
+
+      await axios.get(url)
         .then(res => {
-          this.results.loaded = true;
-          this.loading = false;
           const data = res.data;
-          console.log(data);
-          this.results.videoDetails.title = data.videoDetails.title;
-          this.results.videoDetails.thumbnail = data.videoDetails.thumbnails[4].url;
-          this.results.videoDetails.author = data.videoDetails.author.name;
+
+          const id = data.items[0].id.videoId;
+
+          axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${key}&part=snippet,contentDetails&id=${id}`)
+            .then(res => {
+              const data = res.data;
+              const videoDetails = data.items[0].snippet;
+              const contentDetails = data.items[0].contentDetails;
+
+              this.results.loaded = true;
+              this.loading = false;
+
+              console.log(data);
+
+              this.results.videoDetails.title = videoDetails.title;
+              this.results.videoDetails.duration = contentDetails.duration.split('PT')[1].toLowerCase();
+              console.log(contentDetails.duration.split('PT')[1].toLowerCase());
+              this.results.videoDetails.author = videoDetails.channelTitle;
+              this.results.videoDetails.thumbnail = videoDetails.thumbnails.high.url;
+            })
+            .catch(err => console.error(err));
         })
         .catch(err => console.error(err));
     },
