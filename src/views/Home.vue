@@ -69,8 +69,8 @@ export default {
               console.log(data);
 
               this.results.videoDetails.title = videoDetails.title;
-              this.results.videoDetails.duration = contentDetails.duration.split('PT')[1].toLowerCase();
-              console.log(contentDetails.duration.split('PT')[1].toLowerCase());
+              this.results.videoDetails.duration = contentDetails.duration;
+              console.log(contentDetails.duration);
               this.results.videoDetails.author = videoDetails.channelTitle;
               this.results.videoDetails.thumbnail = videoDetails.thumbnails.high.url;
             })

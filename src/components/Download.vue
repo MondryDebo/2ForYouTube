@@ -4,25 +4,24 @@
     <div class="right">
       <h3 class="title">{{ title }}</h3>
       <p class="author">{{ author }}</p>
+      <p class="duration">{{ (convertIso8601(duration).hours ? (convertIso8601(duration).hours > 10 ? convertIso8601(duration).hours : '0' + convertIso8601(duration).hours) + ':' : '') + convertIso8601(duration).minutes + ':' + (convertIso8601(duration).seconds > 10 ? convertIso8601(duration).seconds : '0' + convertIso8601(duration).seconds) }}</p>
       <div class="download">
         <button class="downloadBtn">Download</button>
-        <select>
-          <option value="1080">MP4 (1080p)</option>
-          <option value="360">MP4 (720p)</option>
-          <option value="360">MP4 (480p)</option>
-          <option value="360">MP4 (360p)</option>
-          <option value="240">MP4 (240p)</option>
-          <option value="144">MP4 (144p)</option>
-          <option value="128">MP3 (128kbps)</option>
-        </select>
+        <Dropdown />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Dropdown from '@/components/Dropdown.vue';
+import { parse } from 'tinyduration';
+
 export default {
   name: 'Download',
+  components: {
+    Dropdown,
+  },
   props: {
     results: {
       type: Object,
@@ -47,6 +46,11 @@ export default {
     this.author = this.results.videoDetails.author;
     this.duration = this.results.videoDetails.duration;
   },
+  methods: {
+    convertIso8601(duration) {
+      return parse(duration);
+    }
+  },
 }
 </script>
 
@@ -66,6 +70,10 @@ export default {
         color: black;
         font-weight: 600;
       }
+
+      .duration {
+        margin-top: 5px;
+      }
   
       .download {
         margin-top: 15px;
@@ -79,12 +87,8 @@ export default {
           padding: 10px;
           border: none;
           border-radius: 5px;
-          background: rgb(34, 151, 5);
+          background: rgb(0, 128, 187);
           color: white;
-        }
-
-        select {
-          margin-left: 15px;
         }
       }
     }
