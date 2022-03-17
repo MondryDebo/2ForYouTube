@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import config from '@/config/config';
 import axios from 'axios';
 import SearchInput from '@/components/SearchInput.vue';
 import SearchButton from '@/components/SearchButton.vue';
@@ -62,7 +63,7 @@ export default {
   },
   methods: {
     async handleSearch() {
-      const key = 'AIzaSyBsuHDnJvJao5dXgIygCv1cNinF0lAcAiU';
+      const key = config.googleApisKey;
       const url = `https://www.googleapis.com/youtube/v3/search?key=${key}&type=video&part=snippet&q=${this.searchValue}`;
       this.loading = true;
 
