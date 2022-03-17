@@ -14,7 +14,7 @@
         Please if you can <a href="https://paypal.me/MondryDebo" target="_blank"><ion-icon name="logo-paypal"></ion-icon>Donate me</a> here.
       </p>
       <div class="downloadThumbnail">
-        <a href="https://i.ytimg.com/vi/TzVE6Ug3HZs/hqdefault.jpg">
+        <a :href="thumbnail" download="2ForYouTube" target="_blank">
           <button>
             <ion-icon name="cloud-download-outline"></ion-icon> 
             Download Thumbnail
@@ -22,7 +22,7 @@
         </a>
       </div>
       <div class="embed">
-        <iframe width="auto" height="100%" src="https://www.youtube.com/embed/TzVE6Ug3HZs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="auto" height="100%" :src="embed" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div class="line"></div>
       <div class="close">
@@ -50,11 +50,15 @@ export default {
       thumbnail: null,
       title: null,
       downloadBtn: null,
+      videoId: null,
+      embed: null,
     };
   },
   mounted() {
     this.thumbnail = this.item.videoDetails.thumbnail;
     this.title = this.item.videoDetails.title;
+    this.videoId = this.item.videoId;
+    this.embed = `https://www.youtube.com/embed/${this.videoId}`;
     this.downloadBtn = this.resolution ? `https://loader.to/api/button/?url=${this.item.videoId}&f=${this.resolution}&color=64c896` : `https://loader.to/api/button/?url=${this.item.videoId}&f=1080&color=64c896`;
   },
 }
