@@ -31,4 +31,18 @@ export default {
   body {
     font-family: 'Montserrat', sans-serif;
   }
+
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(207, 207, 207);
+  }
 </style>

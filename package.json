@@ -8,9 +8,12 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.26.0",
     "core-js": "^3.6.5",
+    "tinyduration": "^3.2.2",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "ytdl-core": "^4.10.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
