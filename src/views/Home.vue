@@ -9,11 +9,22 @@
           <SearchButton @search="handleSearch" />
         </div>
         <div class="results" v-if="results.loaded && !loading">
-          <Download :results="results" :search="searchValue" />
+          <Download 
+            v-model="value"
+            :results="results"
+            :search="searchValue"
+            @download="modalOpen = true"
+            />
         </div>
         <div class="loader" v-if="loading"><div></div><div></div><div></div><div></div></div>
       </div>
     </div>
+    <Modal
+      v-if="modalOpen"
+      :resolution="value"
+      :item="results"
+      @close-modal="modalOpen = false"
+      />
   </div>
 </template>
 
@@ -22,6 +33,7 @@ import axios from 'axios';
 import SearchInput from '@/components/SearchInput.vue';
 import SearchButton from '@/components/SearchButton.vue';
 import Download from '@/components/Download.vue';
+import Modal from '@/components/Modal.vue';
 
 export default {
   name: 'Home',
@@ -29,20 +41,23 @@ export default {
     SearchInput,
     SearchButton,
     Download,
+    Modal,
   },
   data() {
     return {
       loading: false,
       searchValue: '',
+      value: '',
       results: {
         loaded: false,
+        videoId: '',
         videoDetails: {
           title: '',
           thumbnail: '',
           author: '',
-          duration: '',
         }
       },
+      modalOpen: false,
     };
   },
   methods: {
@@ -54,14 +69,21 @@ export default {
       await axios.get(url)
         .then(res => {
           const data = res.data;
+          console.log(data);
+
+          if (data.items.length <= 0) {
+            this.loading = false;
+            return alert('This video doesn\'t exist');
+          }
 
           const id = data.items[0].id.videoId;
+
+          this.results.videoId = id;
 
           axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${key}&part=snippet,contentDetails&id=${id}`)
             .then(res => {
               const data = res.data;
               const videoDetails = data.items[0].snippet;
-              const contentDetails = data.items[0].contentDetails;
 
               this.results.loaded = true;
               this.loading = false;
@@ -69,8 +91,6 @@ export default {
               console.log(data);
 
               this.results.videoDetails.title = videoDetails.title;
-              this.results.videoDetails.duration = contentDetails.duration;
-              console.log(contentDetails.duration);
               this.results.videoDetails.author = videoDetails.channelTitle;
               this.results.videoDetails.thumbnail = videoDetails.thumbnails.high.url;
             })
@@ -86,6 +106,7 @@ export default {
   .home {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .videoWrapper {
@@ -110,6 +131,7 @@ export default {
   }
 
   .results {
+    position: relative;
     display: flex;
     margin-top: 25px;
     width: 95%;

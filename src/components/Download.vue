@@ -4,15 +4,14 @@
     <div class="right">
       <h3 class="title">{{ title }}</h3>
       <p class="author">{{ author }}</p>
-      <p class="duration">{{ (convertIso8601(duration).hours ? (convertIso8601(duration).hours > 10 ? convertIso8601(duration).hours : '0' + convertIso8601(duration).hours) + ':' : '') + convertIso8601(duration).minutes + ':' + (convertIso8601(duration).seconds > 10 ? convertIso8601(duration).seconds : '0' + convertIso8601(duration).seconds) }}</p>
       <div class="download">
-        <button class="downloadBtn">Download</button>
-          <div class="dropdownWrapper">
-            <select class="dropdown" name="resolution" v-model="selected">
-              <option disabled value="">Please select one</option>
-              <option v-for="resolution in options" v-bind:key="resolution.value" :value="resolution.value">{{ resolution.text }}</option>
-            </select>
-            <span class="customArrow"></span>
+        <button class="downloadBtn" @click="handleDownload">Download</button>
+        <div class="dropdownWrapper">
+          <select class="dropdown" name="resolution" v-model="selected" @input="$emit('input', $event.target.value)" :value="value">
+            <option disabled value="">Please select one</option>
+            <option v-for="resolution in options" :key="resolution.value" :value="resolution.value">{{ resolution.text }}</option>
+          </select>
+          <span class="customArrow"></span>
         </div>
       </div>
     </div>
@@ -20,10 +19,13 @@
 </template>
 
 <script>
-import { parse } from 'tinyduration';
+import Modal from '@/components/Modal.vue';
 
 export default {
   name: 'Download',
+  components: {
+    Modal,
+  },
   props: {
     results: {
       type: Object,
@@ -33,6 +35,10 @@ export default {
       type: String,
       required: true,
     },
+    value: {
+      type: String,
+      required: true,
+    }
   },
   data() {
     return {
@@ -50,19 +56,28 @@ export default {
         { text: 'MP3 (128kbps)', value: 'mp3' },
       ],
       selected: '',
+      item: {
+        search: this.search,
+        resolution: this.selected,
+        videoDetails: this.results.videoDetails,
+      },
     };
   },
   mounted() {
     this.thumbnail = this.results.videoDetails.thumbnail;
     this.title = this.results.videoDetails.title;
     this.author = this.results.videoDetails.author;
-    this.duration = this.results.videoDetails.duration;
   },
   methods: {
-    convertIso8601(duration) {
-      return parse(duration);
-    }
-  },
+    handleDownload() {
+      console.log(this.selected)
+      if (this.selected !== '') {
+        this.$emit('download', this.selected);
+      } else {
+        return;
+      }
+    },
+  }
 }
 </script>
 

@@ -1,14 +1,13 @@
 <template>
   <div class="navbarWrapper">
-    <div class="logo">
+    <div class="logo" title="2ForYouTube">
       <img src="../assets/logo.svg" width="50" height="50">
       <p>2ForYouTube</p>
     </div>
     <nav>
       <ul>
-        <li><router-link to="/"><ion-icon name="home-outline"></ion-icon>Home</router-link></li>
-        <li><router-link to="/mp3"><ion-icon name="musical-notes-outline"></ion-icon>YouTube to MP3</router-link></li>
-        <li><router-link to="/mp4"><ion-icon name="videocam-outline"></ion-icon>YouTube to MP4</router-link></li>
+        <li><router-link to="/home"><ion-icon name="home-outline"></ion-icon>Home</router-link></li>
+        <li><router-link to="/thumbnail"><ion-icon name="image-outline"></ion-icon>Download thumbnail</router-link></li>
         <li><router-link to="/about"><ion-icon name="information-circle-outline"></ion-icon>About</router-link></li>
       </ul>
     </nav>
