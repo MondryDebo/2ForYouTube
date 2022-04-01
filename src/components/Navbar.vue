@@ -6,8 +6,7 @@
     </div>
     <nav>
       <ul>
-        <li><router-link to="/home"><ion-icon name="home-outline"></ion-icon>Home</router-link></li>
-        <li><router-link to="/thumbnail"><ion-icon name="image-outline"></ion-icon>Download thumbnail</router-link></li>
+        <li><router-link to="/"><ion-icon name="home-outline"></ion-icon>Home</router-link></li>
         <li><router-link to="/about"><ion-icon name="information-circle-outline"></ion-icon>About</router-link></li>
       </ul>
     </nav>
@@ -50,7 +49,7 @@ export default {
     padding: 20px;
     display: inline;
 
-    &.router-link-active {
+    &.router-link-exact-active {
       background-color: rgba(238, 238, 238, 0.562);
       border-radius: 5px;
     }

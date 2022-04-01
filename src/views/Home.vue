@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" @keyup.enter="handleSearch">
     <div class="videoWrapper">
       <div class="innerWrapper">
         <h1 class="header">Download YouTube videos for free</h1>
