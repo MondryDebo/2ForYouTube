@@ -14,7 +14,7 @@
         Please if you can <a href="https://paypal.me/MondryDebo" target="_blank"><ion-icon name="logo-paypal"></ion-icon>Donate me</a> here.
       </p>
       <div class="downloadThumbnail">
-        <a :href="thumbnail" download="2ForYouTube" target="_blank">
+        <a :href="thumbnail" download="2ForYouTube.png" target="_blank">
           <button>
             <ion-icon name="cloud-download-outline"></ion-icon> 
             Download Thumbnail

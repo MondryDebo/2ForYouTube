@@ -51,8 +51,6 @@ export default {
         { text: 'MP4 (720p)', value: '720' },
         { text: 'MP4 (480p)', value: '480' },
         { text: 'MP4 (360p)', value: '360' },
-        { text: 'MP4 (240p)', value: '240' },
-        { text: 'MP4 (144p)', value: '144' },
         { text: 'MP3 (128kbps)', value: 'mp3' },
       ],
       selected: '',
